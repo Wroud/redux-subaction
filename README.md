@@ -27,8 +27,8 @@ const initalState = 0;
 
 export const counterReducer =
     createSubReducer("counter", initalState)
-        .on(actions.increment, state => state.count + 1)
-        .on(actions.decrement, state => state.count - 1);
+        .on(actions.increment, state => state + 1)
+        .on(actions.decrement, state => state - 1);
 ```
 **2. Then create main reducer**
 ```javascript
