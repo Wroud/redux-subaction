@@ -3,6 +3,13 @@
   "version": "1.0.3",
   "description": "Middleware for working with react-redux",
   "main": "lib/index.js",
+  "module": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "files": [
+    "src",
+    "lib",
+    "lib/index.d.ts"
+  ],
   "scripts": {
     "build": "tsc",
     "webpack": "webpack --config webpack.config.js"
