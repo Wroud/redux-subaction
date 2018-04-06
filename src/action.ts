@@ -20,39 +20,39 @@ export interface IPayloadAction<TData>
     payload: TData;
 }
 
-interface IActionMeta {
+export interface IActionMeta {
     action: IExtendAction<any>;
     description?: string;
     from?: string;
 }
 
-interface IActionsClass {
+export interface IActionsClass {
     [key: string]: IExtendAction<any>;
 }
 
-interface IActionsGroups {
+export interface IActionsGroups {
     [key: string]: IActionsClass;
 }
 
-type ActionCreator<TA extends IExtendAction> = (payload?: TA["payload"], forComponentId?: string) => TA;
+export type ActionCreator<TA extends IExtendAction> = (payload?: TA["payload"], forComponentId?: string) => TA;
 
-type TransformActionsClass<T extends IActionsClass> = {
+export type TransformActionsClass<T extends IActionsClass> = {
     [P in keyof T]: ActionCreator<T[P]>;
 };
 
-type TransformActionsGroups<T extends IActionsGroups> = {
+export type TransformActionsGroups<T extends IActionsGroups> = {
     [P in keyof T]: TransformActionsClass<T[P]>;
 };
 
-type TransformActionsToMaps<T extends IActionsGroups> = {
+export type TransformActionsToMaps<T extends IActionsGroups> = {
     [P in keyof T]: (dispatch: Dispatch<Action>) => { actions: TransformActionsClass<T[P]> };
 };
 
-type TransformCreatorsToMaps<T extends IActionsGroups> = {
+export type TransformCreatorsToMaps<T extends IActionsGroups> = {
     [P in keyof T]: { actions: TransformActionsClass<T[P]> };
 };
 
-interface IActionsResult<T extends IActionsGroups> {
+export interface IActionsResult<T extends IActionsGroups> {
     actions: T;
     creators: TransformActionsGroups<T>;
     mapDispatch: TransformActionsToMaps<T>;

@@ -3,7 +3,7 @@ import { ComponentMergeDecorator, connect, Dispatch, MapDispatchToPropsParam, Ma
 import { Reducer } from "redux";
 import { getActionMeta, IExtendAction } from "./action";
 
-type LocalActionReducer<TProps, TState, TPayload> = (props: TProps, state: TState, payload: TPayload, componentId?: string) => Partial<TState>;
+export type LocalActionReducer<TProps, TState, TPayload> = (props: TProps, state: TState, payload: TPayload, componentId?: string) => Partial<TState>;
 
 export interface IComponentId {
     componentId: string;
@@ -147,8 +147,8 @@ export const connectState = <TProps extends {}, TState>
 
         const result = class ConnectState extends React.Component<TProps> {
             static displayName = `ConnectState(${(BaseComponent as any).displayName || (BaseComponent as any).name})`;
-            private component!: typeof BaseComponent;
-            private componentId: string;
+            component!: typeof BaseComponent;
+            componentId: string;
 
             constructor(props: TProps) {
                 super(props);
@@ -177,7 +177,7 @@ export const connectState = <TProps extends {}, TState>
         return result;
     };
 
-type Connect = <TStateProps, TDispatchProps, TOwnProps extends IComponentId, TMergedProps>(
+export type Connect = <TStateProps, TDispatchProps, TOwnProps extends IComponentId, TMergedProps>(
     mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps>,
     mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
     mergeProps?: MergeProps<TStateProps, TDispatchProps, TOwnProps, TMergedProps>,

@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "outDir": "./lib",
+    "baseUrl": "./src",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "target": "es5",
+    "declaration": true,
+    "jsx": "react",
+    "noImplicitAny": false,
+    "removeComments": true,
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "skipDefaultLibCheck": false,
+    "strict": false,
+    "lib": [ "es6", "dom" ],
+    "types": [ "webpack-env" ],
+  },
+  "exclude": [
+      "bin",
+      "lib",
+      "node_modules"
+  ]
+}

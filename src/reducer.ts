@@ -1,7 +1,7 @@
 ﻿import { Reducer } from "redux";
 import { getActionMeta, IExtendAction } from "./action";
 
-type IActionReducer<TState, TPayload> = (state: TState, payload: TPayload) => Partial<TState>;
+export type IActionReducer<TState, TPayload> = (state: TState, payload: TPayload) => Partial<TState>;
 
 interface IActionReducerList<TState> {
     [key: string]: IActionReducer<TState, any>;
