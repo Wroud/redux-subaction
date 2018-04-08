@@ -79,7 +79,7 @@ export function createPayloadAction<TData>(description?: string, from?: string) 
     return action;
 }
 
-export const getActionMeta = ({ type }: IExtendAction<any>): IActionMeta => createdActions[type];
+export const getActionMeta = ({ type }: IExtendAction<any>): IActionMeta | undefined => createdActions[type];
 export const getCreators = <T extends IActionsClass>(actions: T): TransformActionsClass<T> => {
     const result: TransformActionsClass<T> = {} as any;
     Object.keys(actions).forEach(action => {
