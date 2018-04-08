@@ -13,6 +13,10 @@ More completed example:
 npm install --save redux-subreducer react react-redux
 ```
 
+## Documentation
+
+* [API Reference](docs/README.md)
+
 ## Connect sub-reducer to redux
 **1. Create sub reducer for `counter`**
 ```javascript
