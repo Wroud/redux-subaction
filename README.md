@@ -8,6 +8,12 @@ Also provides detailed logging.
 More completed example:
 1. https://github.com/Wroud/ScheduleReact
 
+
+[![GitHub issues](https://img.shields.io/github/issues/Wroud/redux-subreducer.svg)](https://github.com/Wroud/redux-subreducer/issues)
+[![GitHub license](https://img.shields.io/github/license/Wroud/redux-subreducer.svg)](https://github.com/Wroud/redux-subreducer/blob/master/LICENSE)
+[![npm version](https://img.shields.io/npm/v/redux-subreducer.svg?style=flat-square)](https://www.npmjs.com/package/redux-subreducer)
+[![npm downloads](https://img.shields.io/npm/dm/redux-subreducer.svg?style=flat-square)](https://www.npmjs.com/package/redux-subreducer)
+
 ## Install
 ```
 npm install --save redux-subreducer react react-redux
