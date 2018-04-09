@@ -8,4 +8,3 @@ yarn.lock
 tslint.json
 *.map
 npm-shrinkwrap.json
-package-lock.json
