@@ -15,8 +15,8 @@ export {
     INamedReducer,
     ISubReducer,
     SubReducer,
-    MainReducer,
-    createMainReducer,
+    RootReducer,
+    createRootReducer,
     createSubReducer,
 } from "./reducer";
 export {
@@ -27,3 +27,7 @@ export {
     connectWithComponentId,
     IComponentId,
 } from "./localReducer";
+export {
+    Logging,
+    LoggingLevel,
+} from "./config";
