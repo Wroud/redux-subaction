@@ -15,13 +15,17 @@ export class SubReducer {
             if (typeof state === "function") {
                 return state(action);
             }
-            if (typeof state !== "object") {
+            if (typeof state !== "object" && typeof this.initState !== "object") {
                 const { type, payload } = action;
                 const actionReducer = this.actionReducerList[type];
-                if (!actionReducer) {
-                    return state;
+                let nextState = Object.assign({}, state);
+                if (state === undefined) {
+                    nextState = this.initState;
                 }
-                const nextState = actionReducer(state, payload || {});
+                if (!actionReducer) {
+                    return nextState;
+                }
+                nextState = actionReducer(state, payload || {});
                 if (Logging.level >= LoggingLevel.info) {
                     console.log("Reducer: ", this.path);
                     this.logActionInfo(action);

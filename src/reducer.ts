@@ -26,7 +26,7 @@ export interface IRootReducer<TState, TReducerState>
     path: string;
 
     on: <TPayload>(action: IExtendAction<TPayload>, reducer: ActionReducer<TReducerState, TPayload>) => this;
-    join: <T extends TReducerState[keyof TReducerState]>(reducer: ISubReducer<TState, T>) => this;
+    join: <T extends TReducerState[keyof TReducerState]>(reducer: ISubReducer<TReducerState, T>) => this;
     joinReducer: <T extends TReducerState[keyof TReducerState]>(name: keyof TReducerState, reducer: (state: T, action: any) => T) => this;
     joinListener: (name: string, handler: ActionsHandler<TState>) => this;
 }
@@ -34,7 +34,7 @@ export interface IRootReducer<TState, TReducerState>
 export interface ISubReducer<TState, TReducerState>
     extends IRootReducer<TState, TReducerState> {
 
-    setParent: (reducer: ISubReducer<TState, any>) => void;
+    setParent: (reducer: ISubReducer<any, TState>) => void;
     stateSelector: (state: any) => TReducerState;
 }
 
@@ -48,7 +48,7 @@ export class SubReducer<TState, TReducerState>
     private actionReducerList: IActionReducerList<TReducerState>;
     private reducers: Array<INamedReducer<any>>;
     private subscribers: Array<INamedSubscriber<any>>;
-    private parent!: ISubReducer<TState, any>;
+    private parent!: ISubReducer<any, TState>;
 
     constructor(name: string, initState?: Partial<TReducerState>) {
         this.initState = initState || {} as any;
@@ -68,7 +68,7 @@ export class SubReducer<TState, TReducerState>
 
     stateSelector = state => this.parent.stateSelector(state)[this._name];
 
-    setParent = (reducer: ISubReducer<TState, any>) => {
+    setParent = (reducer: ISubReducer<any, TState>) => {
         this.parent = reducer;
     }
 
@@ -81,15 +81,20 @@ export class SubReducer<TState, TReducerState>
             return (state as any)(action);
         }
 
-        if (typeof state !== "object") {
+        if (typeof state !== "object" && typeof this.initState !== "object") {
             const { type, payload } = action as IExtendAction<any>;
             const actionReducer = this.actionReducerList[type];
 
-            if (!actionReducer) {
-                return state;
+            let nextState: TReducerState = { ...state as any };
+            if (state === undefined) {
+                nextState = this.initState;
             }
 
-            const nextState = actionReducer(state, payload || {}) as TReducerState;
+            if (!actionReducer) {
+                return nextState;
+            }
+
+            nextState = actionReducer(state, payload || {}) as TReducerState;
 
             if (Logging.level >= LoggingLevel.info) {
                 console.log("Reducer: ", this.path);
@@ -140,10 +145,10 @@ export class SubReducer<TState, TReducerState>
     }
 
     join<T extends TReducerState[keyof TReducerState]>(
-        reducer: ISubReducer<TState, T>,
+        reducer: ISubReducer<TReducerState, T>,
     ) {
         this.reducers = this.reducers.filter(el => el.name !== reducer.name);
-        reducer.setParent(this as ISubReducer<TState, any>);
+        reducer.setParent(this);
         this.reducers.push(reducer);
         return this;
     }
@@ -193,6 +198,9 @@ export class RootReducer<TState>
 export function createRootReducer<TState>(initState?: Partial<TState>): IRootReducer<TState, TState> {
     return new RootReducer<TState>(initState);
 }
-export function createSubReducer<TParentState, TState>(name: keyof TParentState, initState?: Partial<TState>): ISubReducer<TParentState, TState> {
+export function createSubReducer<TParentState, TState>(
+    name: keyof TParentState,
+    initState?: Partial<TState>,
+): ISubReducer<TParentState, TState> {
     return new SubReducer<TParentState, TState>(name, initState);
 }
