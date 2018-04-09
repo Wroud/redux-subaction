@@ -1,6 +1,6 @@
 {
   "name": "redux-subreducer",
-  "version": "1.0.4-alpha3",
+  "version": "1.0.5",
   "description": "Middleware for working with react-redux",
   "main": "lib/index.js",
   "module": "lib/index.js",
@@ -11,7 +11,9 @@
     "lib/index.d.ts"
   ],
   "scripts": {
-    "build": "tsc",
+    "build:commonjs": "tsc",
+    "build:es":"tsc -p tsconfig.es.json",
+    "build":"npm run build:es && npm run build:commonjs",
     "webpack": "webpack --config webpack.config.js"
   },
   "repository": {
@@ -22,7 +24,8 @@
     "react",
     "react-redux",
     "redux",
-    "middleware"
+    "middleware",
+    "typescript"
   ],
   "author": "Alexey Potsetsuev",
   "license": "MIT",
@@ -31,9 +34,9 @@
   },
   "homepage": "https://github.com/Wroud/redux-subreducer#readme",
   "dependencies": {
-    "react": "^16.3.1",
-    "react-redux": "^5.0.7",
-    "redux": "3.7.1"
+    "react": "^15.0.0-0 || ^16.0.0-0",
+    "react-redux": "^5.0.0",
+    "redux": "^2.0.0 || ^3.0.0 || ^4.0.0-0"
   },
   "devDependencies": {
     "@types/react": "^16.3.5",
@@ -41,8 +44,10 @@
     "@types/webpack": "2.2.15",
     "@types/webpack-env": "1.13.0",
     "awesome-typescript-loader": "3.5.0",
-    "webpack-merge": "4.1.0",
+    "typescript": "2.7.2",
     "webpack": "^2.5.1",
-    "typescript": "2.7.2"
+    "webpack-merge": "4.1.0",
+    "tslint-react": "^3.5.1",
+    "tslint": "^5.9.1"
   }
 }

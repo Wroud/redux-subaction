@@ -1,13 +1,13 @@
 import * as React from "react";
 import { ComponentMergeDecorator, MapDispatchToPropsParam, MapStateToPropsParam, MergeProps } from "react-redux";
-import { Reducer } from "redux";
+import { Action, Reducer } from "redux";
 import { IExtendAction } from "./action";
 export declare type LocalActionReducer<TProps, TState, TPayload> = (props: TProps, state: TState, payload: TPayload, componentId?: string) => Partial<TState>;
 export interface IComponentId {
     componentId: string;
 }
 export interface ILocalReducer<TProps extends IComponentId, TState> {
-    components: Array<React.Component<TProps, TState>>;
+    reduceComponents: (state, action: Action) => void;
     reducer: (props: TProps, state: TState, action) => TState;
     handleComponentMount: (component: React.Component<TProps, TState>) => void;
     handleComponentUnmount: (component: React.Component<TProps, TState>) => void;
@@ -16,17 +16,17 @@ export interface ILocalReducer<TProps extends IComponentId, TState> {
     onFrom: <TPayload>(componentId: string, action: IExtendAction<TPayload>, reducer: LocalActionReducer<TProps, TState, TPayload>) => this;
 }
 export declare class LocalReducer<TProps extends IComponentId, TState> implements ILocalReducer<TProps, TState> {
-    components: Array<React.Component<TProps, TState>>;
+    private components;
     private actionReducerList;
     constructor();
-    reducer: (props: TProps, state: TState, action: any) => TState;
-    on: <TPayload>({ type }: IExtendAction<TPayload>, reducer: LocalActionReducer<TProps, TState, TPayload>, own?: boolean, fromComponentId?: string) => this;
-    onOwn: <TPayload>({ type }: IExtendAction<TPayload>, reducer: LocalActionReducer<TProps, TState, TPayload>) => this;
-    onFrom: <TPayload>(componentId: string, { type }: IExtendAction<TPayload>, reducer: LocalActionReducer<TProps, TState, TPayload>) => this;
+    reduceComponents: (state: any, action: Action) => void;
+    reducer: (props: TProps, state: TState, action: Action) => any;
+    on<TPayload>({type}: IExtendAction<TPayload>, reducer: LocalActionReducer<TProps, TState, TPayload>, own?: boolean, fromComponentId?: string): this;
+    onOwn<TPayload>({type}: IExtendAction<TPayload>, reducer: LocalActionReducer<TProps, TState, TPayload>): this;
+    onFrom<TPayload>(componentId: string, {type}: IExtendAction<TPayload>, reducer: LocalActionReducer<TProps, TState, TPayload>): this;
     handleComponentMount: (component: React.Component<TProps, TState, never>) => void;
     handleComponentUnmount: (component: React.Component<TProps, TState, never>) => void;
     private logActionInfo(action);
-    private deepExtend;
 }
 export declare const connectState: <TProps extends {}, TState>(initState: TState, subscriber: (reducer: ILocalReducer<TProps & IComponentId, TState>) => any, setComponentId?: string) => (BaseComponent: React.Component<TProps, TState, never>) => {
     new (props: TProps): {

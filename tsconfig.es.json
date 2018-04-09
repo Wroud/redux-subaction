@@ -1,24 +1,29 @@
 {
   "compilerOptions": {
-    "outDir": "./lib",
+    "outDir": "./es",
     "baseUrl": "./src",
-    "module": "commonjs",
+    "module": "es6",
     "moduleResolution": "node",
-    "target": "es5",
-    "declaration": true,
+    "target": "es6",
+    "declaration": false,
     "jsx": "react",
     "noImplicitAny": false,
     "removeComments": true,
     "experimentalDecorators": false,
-    "sourceMap": true,
+    "sourceMap": false,
     "skipDefaultLibCheck": false,
     "strict": false,
-    "lib": [ "es6", "dom" ],
-    "types": [ "webpack-env" ],
+    "lib": [
+      "es6",
+      "dom"
+    ],
+    "types": [
+      "webpack-env"
+    ]
   },
   "exclude": [
-      "bin",
-      "lib",
-      "node_modules"
+    "bin",
+    "lib",
+    "node_modules"
   ]
 }
