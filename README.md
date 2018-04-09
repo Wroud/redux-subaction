@@ -26,7 +26,7 @@ npm install --save redux-subreducer react react-redux
 ## Connect sub-reducer to redux
 **1. Create sub reducer for `counter`**
 ```javascript
-import { createAction, createMainReducer, LocalListener } from "redux-subreducer";
+import { createAction, createRootReducer, LocalListener } from "redux-subreducer";
 
 export const actions = {
     increment: createAction("Increment"),
@@ -47,7 +47,7 @@ import { routerReducer } from "react-router-redux";
 const appInitalState = {};
 
 export const appReducer =
-    createMainReducer(appInitalState)
+    createRootReducer(appInitalState)
         .join(counterReducer)
         .joinReducer("routing", routerReducer) // you also can connect classic reducers
         .joinListener("listener", LocalListener); // or actions listener, its same reducer but not returning state
