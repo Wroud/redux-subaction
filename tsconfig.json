@@ -13,12 +13,18 @@
     "sourceMap": true,
     "skipDefaultLibCheck": false,
     "strict": false,
-    "lib": [ "es6", "dom" ],
-    "types": [ "webpack-env" ],
+    "lib": [
+      "es6",
+      "dom"
+    ],
+    "types": [
+      "webpack-env"
+    ],
   },
   "exclude": [
-      "bin",
-      "lib",
-      "node_modules"
+    "tests",
+    "bin",
+    "lib",
+    "node_modules"
   ]
 }

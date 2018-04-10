@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import "mocha";
-import { createRootReducer, createSubReducer } from "./index";
+import { createRootReducer, createSubReducer } from "../src/index";
 
 describe("Reducer", () => {
 

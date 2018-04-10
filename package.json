@@ -15,7 +15,7 @@
     "build:es": "tsc -p tsconfig.es.json",
     "build": "npm run build:es && npm run build:commonjs",
     "webpack": "webpack --config webpack.config.js",
-    "test": "mocha -r ts-node/register src/**/*.spec.ts"
+    "test": "mocha -r ts-node/register tests/**/*.spec.ts"
   },
   "repository": {
     "type": "git",
