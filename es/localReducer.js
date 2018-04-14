@@ -97,6 +97,9 @@ export class LocalReducer {
 }
 const localReducers = [];
 let componentMaxId = 0;
+export function resetComponentId() {
+    componentMaxId = 0;
+}
 export const connectState = (initState, subscriber, setComponentId) => (BaseComponent) => {
     const reducer = new LocalReducer();
     subscriber(reducer);

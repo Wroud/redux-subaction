@@ -2,7 +2,7 @@ export enum LoggingLevel {
     none = 0,
     warn = 1,
     info = 2,
-    addition = 2,
+    addition = 3,
 }
 
 export class LoggingClass {

@@ -161,6 +161,10 @@ export class LocalReducer<TProps extends IComponentId, TState>
 const localReducers: Array<ILocalReducer<any, any>> = [];
 let componentMaxId = 0;
 
+export function resetComponentId() {
+    componentMaxId = 0;
+}
+
 export const connectState = <TProps extends {}, TState>(
     initState: TState,
     subscriber: (reducer: ILocalReducer<TProps & IComponentId, TState>) => any,

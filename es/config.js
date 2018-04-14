@@ -3,7 +3,7 @@ export var LoggingLevel;
     LoggingLevel[LoggingLevel["none"] = 0] = "none";
     LoggingLevel[LoggingLevel["warn"] = 1] = "warn";
     LoggingLevel[LoggingLevel["info"] = 2] = "info";
-    LoggingLevel[LoggingLevel["addition"] = 2] = "addition";
+    LoggingLevel[LoggingLevel["addition"] = 3] = "addition";
 })(LoggingLevel || (LoggingLevel = {}));
 export class LoggingClass {
     constructor() {

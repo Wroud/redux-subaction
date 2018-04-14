@@ -28,6 +28,7 @@ export declare class LocalReducer<TProps extends IComponentId, TState> implement
     handleComponentUnmount: (component: React.Component<TProps, TState, never>) => void;
     private logActionInfo(action);
 }
+export declare function resetComponentId(): void;
 export declare const connectState: <TProps extends {}, TState>(initState: TState, subscriber: (reducer: ILocalReducer<TProps & IComponentId, TState>) => any, setComponentId?: string) => (BaseComponent: React.Component<TProps, TState, never>) => {
     new (props: TProps): {
         component: React.Component<TProps, TState, never>;

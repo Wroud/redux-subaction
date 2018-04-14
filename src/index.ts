@@ -26,6 +26,7 @@ export {
     connectState,
     connectWithComponentId,
     IComponentId,
+    resetComponentId,
 } from "./localReducer";
 export {
     Logging,
