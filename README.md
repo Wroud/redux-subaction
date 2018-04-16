@@ -52,7 +52,7 @@ const appInitalState = {};
 export const appReducer =
     createRootReducer(appInitalState)
         .join(counterReducer)
-        .joinReducer("routing", routerReducer) // you also can connect classic reducers
+        .joinReducer("routing", routerReducer) // also you can connect classic reducers
         .joinListener("listener", LocalListener); // or actions listener, its same reducer but not returning state
 ```
 **3. Now create redux store**
