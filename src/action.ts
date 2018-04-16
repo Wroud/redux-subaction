@@ -88,7 +88,7 @@ export const getCreators = <T extends IActionsClass>(actions: T): TransformActio
     return result;
 };
 
-export const getActionCreator = (action: Action) => () => action;
+export const getActionCreator = (action: Action) => (forComponentId?: string) => ({ ...action, forComponentId });
 export const getPayloadCreator = <TData>(action: IPayloadAction<TData>) => (payload: TData, forComponentId?: string) => ({ ...action, payload, forComponentId });
 export const mapToActions = <T extends ActionCreatorsMapObject>(actions: T): { actions: T } => ({ actions });
 export const mapDispatchToCreators = <T extends ActionCreatorsMapObject>(actions: { actions: T }) =>
