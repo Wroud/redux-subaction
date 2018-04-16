@@ -24,7 +24,7 @@ export const getCreators = (actions) => {
     });
     return result;
 };
-export const getActionCreator = (action) => () => action;
+export const getActionCreator = (action) => (forComponentId) => (Object.assign({}, action, { forComponentId }));
 export const getPayloadCreator = (action) => (payload, forComponentId) => (Object.assign({}, action, { payload, forComponentId }));
 export const mapToActions = (actions) => ({ actions });
 export const mapDispatchToCreators = (actions) => (dispatch) => ({ actions: bindActionCreators(actions.actions, dispatch) });

@@ -45,7 +45,10 @@ export declare function createAction(description?: string, from?: string): IExte
 export declare function createPayloadAction<TData>(description?: string, from?: string): IPayloadAction<TData>;
 export declare const getActionMeta: ({ type }: IExtendAction<any>) => IActionMeta;
 export declare const getCreators: <T extends IActionsClass>(actions: T) => TransformActionsClass<T>;
-export declare const getActionCreator: (action: Action) => () => Action;
+export declare const getActionCreator: (action: Action) => (forComponentId?: string) => {
+    forComponentId: string;
+    type: any;
+};
 export declare const getPayloadCreator: <TData>(action: IPayloadAction<TData>) => (payload: TData, forComponentId?: string) => {
     payload: TData;
     forComponentId: string;
