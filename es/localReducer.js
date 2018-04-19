@@ -71,12 +71,23 @@ export class LocalReducer {
         this.actionReducerList = {};
         this.components = [];
     }
-    on({ type }, reducer, own, fromComponentId) {
-        this.actionReducerList[type] = {
-            reducer,
-            own,
-            fromComponentId,
-        };
+    on(actions, reducer, own, fromComponentId) {
+        if (Array.isArray(actions)) {
+            actions.forEach(({ type }) => {
+                this.actionReducerList[type] = {
+                    reducer,
+                    own,
+                    fromComponentId,
+                };
+            });
+        }
+        else {
+            this.actionReducerList[actions.type] = {
+                reducer,
+                own,
+                fromComponentId,
+            };
+        }
         return this;
     }
     onOwn({ type }, reducer) {

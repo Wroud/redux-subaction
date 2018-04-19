@@ -12,7 +12,7 @@ export interface INamedSubscriber<TState> {
 }
 export interface IRootReducer<TState, TReducerState> extends INamedReducer<TReducerState> {
     path: string;
-    on: <TPayload>(action: IExtendAction<TPayload>, reducer: ActionReducer<TReducerState, TPayload>) => this;
+    on: (<TPayload>(action: IExtendAction<TPayload>, reducer: ActionReducer<TReducerState, TPayload>) => this) | (<TPayload>(action: Array<IExtendAction<TPayload>>, reducer: ActionReducer<TReducerState, TPayload>) => this);
     join: <T extends TReducerState[keyof TReducerState]>(reducer: ISubReducer<TReducerState, T>) => this;
     joinReducer: <T extends TReducerState[keyof TReducerState]>(name: keyof TReducerState, reducer: (state: T, action: any) => T) => this;
     joinListener: (name: string, handler: ActionsHandler<TState>) => this;
@@ -34,7 +34,7 @@ export declare class SubReducer<TState, TReducerState> implements ISubReducer<TS
     stateSelector: (state: any) => any;
     setParent: (reducer: ISubReducer<any, TState>) => void;
     reducer: Reducer<TReducerState>;
-    on<TPayload>({type}: IExtendAction<TPayload>, state: ActionReducer<TReducerState, TPayload>): this;
+    on<TPayload>(action: IExtendAction<TPayload>, state: ActionReducer<TReducerState, TPayload>): any;
     join<T extends TReducerState[keyof TReducerState]>(reducer: ISubReducer<TReducerState, T>): this;
     joinReducer<T extends TReducerState[keyof TReducerState]>(name: keyof TReducerState, reducer: (state: T, action: any) => T): this;
     joinListener(name: string, handler: (state: TState, action: any) => void): this;

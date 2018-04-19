@@ -11,7 +11,7 @@ export interface ILocalReducer<TProps extends IComponentId, TState> {
     reducer: (props: TProps, state: TState, action) => TState;
     handleComponentMount: (component: React.Component<TProps, TState>) => void;
     handleComponentUnmount: (component: React.Component<TProps, TState>) => void;
-    on: <TPayload>(action: IExtendAction<TPayload>, reducer: LocalActionReducer<TProps, TState, TPayload>) => this;
+    on: (<TPayload>(action: IExtendAction<TPayload>, reducer: LocalActionReducer<TProps, TState, TPayload>) => this) | (<TPayload>(actions: Array<IExtendAction<TPayload>>, reducer: LocalActionReducer<TProps, TState, TPayload>) => this);
     onOwn: <TPayload>(action: IExtendAction<TPayload>, reducer: LocalActionReducer<TProps, TState, TPayload>) => this;
     onFrom: <TPayload>(componentId: string, action: IExtendAction<TPayload>, reducer: LocalActionReducer<TProps, TState, TPayload>) => this;
 }
@@ -21,9 +21,9 @@ export declare class LocalReducer<TProps extends IComponentId, TState> implement
     constructor();
     reduceComponents: (state: any, action: Action) => void;
     reducer: (props: TProps, state: TState, action: Action) => any;
-    on<TPayload>({type}: IExtendAction<TPayload>, reducer: LocalActionReducer<TProps, TState, TPayload>, own?: boolean, fromComponentId?: string): this;
-    onOwn<TPayload>({type}: IExtendAction<TPayload>, reducer: LocalActionReducer<TProps, TState, TPayload>): this;
-    onFrom<TPayload>(componentId: string, {type}: IExtendAction<TPayload>, reducer: LocalActionReducer<TProps, TState, TPayload>): this;
+    on<TPayload>(action: IExtendAction<TPayload>, reducer: LocalActionReducer<TProps, TState, TPayload>, own?: boolean, fromComponentId?: string): any;
+    onOwn<TPayload>({type}: IExtendAction<TPayload>, reducer: LocalActionReducer<TProps, TState, TPayload>): any;
+    onFrom<TPayload>(componentId: string, {type}: IExtendAction<TPayload>, reducer: LocalActionReducer<TProps, TState, TPayload>): any;
     handleComponentMount: (component: React.Component<TProps, TState, never>) => void;
     handleComponentUnmount: (component: React.Component<TProps, TState, never>) => void;
     private logActionInfo(action);

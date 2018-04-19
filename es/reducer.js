@@ -70,8 +70,15 @@ export class SubReducer {
     get path() {
         return `${this.parent.path}.${this._name}`;
     }
-    on({ type }, state) {
-        this.actionReducerList[type] = state;
+    on(actions, state) {
+        if (Array.isArray(actions)) {
+            actions.forEach(({ type }) => {
+                this.actionReducerList[type] = state;
+            });
+        }
+        else {
+            this.actionReducerList[actions.type] = state;
+        }
         return this;
     }
     join(reducer) {
