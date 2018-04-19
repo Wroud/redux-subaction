@@ -25,8 +25,7 @@ export interface IRootReducer<TState, TReducerState>
 
     path: string;
 
-    on: (<TPayload>(action: IExtendAction<TPayload>, reducer: ActionReducer<TReducerState, TPayload>) => this)
-    | (<TPayload>(action: Array<IExtendAction<TPayload>>, reducer: ActionReducer<TReducerState, TPayload>) => this);
+    on: <TPayload>(action: IExtendAction<TPayload> | Array<IExtendAction<TPayload>>, reducer: ActionReducer<TReducerState, TPayload>) => this;
     join: <T extends TReducerState[keyof TReducerState]>(reducer: ISubReducer<TReducerState, T>) => this;
     joinReducer: <T extends TReducerState[keyof TReducerState]>(name: keyof TReducerState, reducer: (state: T, action: any) => T) => this;
     joinListener: (name: string, handler: ActionsHandler<TState>) => this;

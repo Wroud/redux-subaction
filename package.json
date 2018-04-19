@@ -1,6 +1,6 @@
 {
   "name": "redux-subreducer",
-  "version": "1.0.5-alpha8",
+  "version": "1.0.5-alpha9",
   "description": "Middleware for working with react-redux",
   "main": "lib/index.js",
   "module": "lib/index.js",

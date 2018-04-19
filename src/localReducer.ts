@@ -28,8 +28,7 @@ export interface ILocalReducer<TProps extends IComponentId, TState> {
     handleComponentMount: (component: React.Component<TProps, TState>) => void;
     handleComponentUnmount: (component: React.Component<TProps, TState>) => void;
 
-    on: (<TPayload>(action: IExtendAction<TPayload>, reducer: LocalActionReducer<TProps, TState, TPayload>) => this)
-    | (<TPayload>(actions: Array<IExtendAction<TPayload>>, reducer: LocalActionReducer<TProps, TState, TPayload>) => this);
+    on: <TPayload>(action: IExtendAction<TPayload> | Array<IExtendAction<TPayload>>, reducer: LocalActionReducer<TProps, TState, TPayload>) => this;
     onOwn: <TPayload>(action: IExtendAction<TPayload>, reducer: LocalActionReducer<TProps, TState, TPayload>) => this;
     onFrom: <TPayload>(componentId: string, action: IExtendAction<TPayload>, reducer: LocalActionReducer<TProps, TState, TPayload>) => this;
 }
