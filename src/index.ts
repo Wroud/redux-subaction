@@ -32,3 +32,8 @@ export {
     Logging,
     LoggingLevel,
 } from "./config";
+
+/**
+ * @hidden
+ * @ignore
+ */

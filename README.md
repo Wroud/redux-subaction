@@ -24,7 +24,8 @@ npm install --save redux-subreducer react react-redux
 
 ## Documentation
 
-* [API Reference](docs/README.md)
+* [API Reference examples](docs/README.md)
+* [API Reference](https://wroud.github.io/redux-subreducer/dist/docs/)
 
 ## Connect sub-reducer to redux
 **1. Create sub reducer for `counter`**

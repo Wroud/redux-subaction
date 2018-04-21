@@ -28,9 +28,39 @@ export interface ILocalReducer<TProps extends IComponentId, TState> {
     handleComponentMount: (component: React.Component<TProps, TState>) => void;
     handleComponentUnmount: (component: React.Component<TProps, TState>) => void;
 
-    on: <TPayload>(action: IExtendAction<TPayload> | Array<IExtendAction<TPayload>>, reducer: LocalActionReducer<TProps, TState, TPayload>) => this;
-    onOwn: <TPayload>(action: IExtendAction<TPayload>, reducer: LocalActionReducer<TProps, TState, TPayload>) => this;
-    onFrom: <TPayload>(componentId: string, action: IExtendAction<TPayload>, reducer: LocalActionReducer<TProps, TState, TPayload>) => this;
+    /**
+     * Add reducer for action.
+     * @param {IExtendedAction} action Action
+     * @param {LocalActionReducer} reducer Reducer function
+     * @returns {this} this
+     */
+    on<TPayload>(action: IExtendAction<TPayload>, reducer: LocalActionReducer<TProps, TState, TPayload>): this;
+
+    /**
+     * Add reducer for actions.
+     * @param {IExtendedAction[]} actions Actions array
+     * @param {LocalActionReducer} reducer Reducer function
+     * @returns {this} this
+     */
+    on<TPayload>(actions: Array<IExtendAction<TPayload>>, reducer: LocalActionReducer<TProps, TState, TPayload>): this;
+    on<TPayload>(actions: IExtendAction<TPayload> | Array<IExtendAction<TPayload>>, reducer: LocalActionReducer<TProps, TState, TPayload>): this;
+
+    /**
+     * Add reducer for specified action that have fromComponentId === componentId.
+     * @param {IExtendedAction} action Action
+     * @param {LocalActionReducer} reducer Reducer function
+     * @returns {this} this
+     */
+    onOwn<TPayload>(action: IExtendAction<TPayload>, reducer: LocalActionReducer<TProps, TState, TPayload>): this;
+
+    /**
+     * Add reducer for specified action that have fromComponentId === componentId.
+     * @param {IExtendedAction} componentId Specified componentId
+     * @param {IExtendedAction} action Action
+     * @param {LocalActionReducer} reducer Reducer function
+     * @returns {this} this
+     */
+    onFrom<TPayload>(componentId: string, action: IExtendAction<TPayload>, reducer: LocalActionReducer<TProps, TState, TPayload>): this;
 }
 
 export class LocalReducer<TProps extends IComponentId, TState>
@@ -109,11 +139,6 @@ export class LocalReducer<TProps extends IComponentId, TState>
             return nextState;
         }
     }
-    on<TPayload>(
-        action: IExtendAction<TPayload>,
-        reducer: LocalActionReducer<TProps, TState, TPayload>,
-        own?: boolean, fromComponentId?: string,
-    );
     on<TPayload>(
         actions: Array<IExtendAction<TPayload>> | IExtendAction<TPayload>,
         reducer: LocalActionReducer<TProps, TState, TPayload>,
