@@ -16,6 +16,7 @@ export interface INamedReducer<TState> {
      * Unique name that uses as key for state
      */
     name: string;
+    initState: Partial<TState>;
     /**
      * Reducer function. Can be used as classic Reducer
      */
@@ -116,8 +117,8 @@ const RootReducerName = "@root";
 export class SubReducer<TState, TReducerState>
     implements ISubReducer<TState, TReducerState> {
 
+    initState: Partial<TReducerState>;
     protected _name: string;
-    private initState: Partial<TReducerState>;
     private actionReducerList: IActionReducerList<TReducerState>;
     private reducers: Array<INamedReducer<any>>;
     private subscribers: Array<INamedSubscriber<any>>;
@@ -281,7 +282,7 @@ export class SubReducer<TState, TReducerState>
         reducer: (state: T, action: any) => T,
     ) {
         this.reducers = this.reducers.filter(el => el.name !== name);
-        this.reducers.push({ name, reducer });
+        this.reducers.push({ name, reducer, initState: {} });
         return this;
     }
 
@@ -322,6 +323,24 @@ export class RootReducer<TState>
      * Returns same `state`
      */
     stateSelector = state => state;
+}
+
+export type TransformSubReducerMap<T extends ISubReducerMap> = {
+    [P in keyof T]: Required<Readonly<T[P]["initState"]>>;
+};
+
+export interface ISubReducerMap {
+    [key: string]: ISubReducer<any, any>;
+}
+
+export function getState<T extends ISubReducerMap, TMap>(reducers: T, map: (state: TransformSubReducerMap<T>) => TMap) {
+    return state => {
+        const stateMap: TransformSubReducerMap<T> = {} as any;
+        Object.keys(reducers).forEach(key => {
+            stateMap[key] = reducers[key].stateSelector(state);
+        });
+        return map(stateMap);
+    };
 }
 
 /**
