@@ -18,6 +18,7 @@ export {
     RootReducer,
     createRootReducer,
     createSubReducer,
+    getState,
 } from "./reducer";
 export {
     ILocalReducer,
