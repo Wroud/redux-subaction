@@ -70,14 +70,14 @@ export class SubReducer {
     get path() {
         return `${this.parent.path}.${this._name}`;
     }
-    on(actions, state) {
+    on(actions, reducer) {
         if (Array.isArray(actions)) {
             actions.forEach(({ type }) => {
-                this.actionReducerList[type] = state;
+                this.actionReducerList[type] = reducer;
             });
         }
         else {
-            this.actionReducerList[actions.type] = state;
+            this.actionReducerList[actions.type] = reducer;
         }
         return this;
     }
@@ -89,7 +89,7 @@ export class SubReducer {
     }
     joinReducer(name, reducer) {
         this.reducers = this.reducers.filter(el => el.name !== name);
-        this.reducers.push({ name, reducer });
+        this.reducers.push({ name, reducer, initState: {} });
         return this;
     }
     joinListener(name, handler) {
@@ -115,6 +115,15 @@ export class RootReducer extends SubReducer {
     get path() {
         return this._name;
     }
+}
+export function getState(reducers, map) {
+    return state => {
+        const stateMap = {};
+        Object.keys(reducers).forEach(key => {
+            stateMap[key] = reducers[key].stateSelector(state);
+        });
+        return map(stateMap);
+    };
 }
 export function createRootReducer(initState) {
     return new RootReducer(initState);
